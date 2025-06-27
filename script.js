@@ -1,4 +1,5 @@
 const topics = {
+
   "Present Simple Tense": [
     {
       title: "Translate to Nepali",
@@ -69,6 +70,45 @@ const topics = {
     }
   ],
 
+
+
+  "Present Perfect Tense": [
+  {
+    title: "Translate to Nepali",
+    questions: [
+      { q: "I have eaten lunch." },
+      { q: "She has finished her homework." },
+      { q: "They have gone to the market." },
+      { q: "We have seen that movie." },
+      { q: "He has written a book." }
+    ]
+  },
+  {
+    title: "Answer the Question",
+    questions: [
+      { q: "Have you ever traveled abroad?" },
+      { q: "What have you done today?" },
+      { q: "Has he completed the task?" }
+    ]
+  },
+  {
+    title: "Create Sentence Using Word",
+    questions: [
+      { q: "Go" },
+      { q: "Completed" },
+      { q: "Seen" }
+    ]
+  },
+  {
+    title: "Create 3-5 Questions on Given Topic",
+    questions: [
+      { q: "Life experiences" }
+    ]
+  }
+],
+
+
+  
   "Past Simple Tense": [
     {
       title: "Translate to Nepali",
@@ -137,7 +177,8 @@ const topics = {
         { q: "Next week" }
       ]
     }
-  ]
+  ],
+
 };
 
 const storageKey = "eng2nep_exercise_answers";
