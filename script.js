@@ -1,5 +1,41 @@
 const topics = {
 
+  "Present Simple Tense (is/am/are)": [
+  {
+    title: "Translate to Nepali",
+    questions: [
+      { q: "I am a student." },
+      { q: "She is a doctor." },
+      { q: "They are friends." },
+      { q: "We are happy." },
+      { q: "He is my brother." }
+    ]
+  },
+  {
+    title: "Answer the Question",
+    questions: [
+      { q: "Are you a student?" },
+      { q: "Is he your friend?" },
+      { q: "Are they at home?" }
+    ]
+  },
+  {
+    title: "Create Sentence Using Word",
+    questions: [
+      { q: "Is" },
+      { q: "Am" },
+      { q: "Are" }
+    ]
+  },
+  {
+    title: "Create 3-5 Questions on Given Topic",
+    questions: [
+      { q: "Family and Identity" }
+    ]
+  }
+],
+
+
   "Present Simple Tense": [
     {
       title: "Translate to Nepali",
