@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const topics = {
         "Present Simple Tense (is/am/are)": [
             {
-                title: "Translate to Hindi",
+                title: "Translate",
                 questions: [
                     { q: "I am a student.", id: "is_am_are_translate_student" },
                     { q: "She is a teacher.", id: "is_am_are_translate_teacher" },
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         "Present Simple Tense": [
             {
-                title: "Translate to Hindi",
+                title: "Translate", // Changed from "Translate to Hindi"
                 questions: [
                     { q: "I go to school every day.", id: "ps_translate_school" },
                     { q: "She loves to sing.", id: "ps_translate_sing" },
@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         "Present Continuous Tense": [
             {
-                title: "Translate to Hindi",
+                title: "Translate", // Changed from "Translate to Hindi"
                 questions: [
                     { q: "I am studying now.", id: "pc_translate_studying" },
                     { q: "They are playing football.", id: "pc_translate_playing" },
@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         "Present Perfect Tense": [
             {
-                title: "Translate to Hindi",
+                title: "Translate", // Changed from "Translate to Hindi"
                 questions: [
                     { q: "I have eaten lunch.", id: "pp_translate_lunch" },
                     { q: "She has finished her homework.", id: "pp_translate_homework" },
@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         "Past Simple Tense": [
             {
-                title: "Translate to Hindi",
+                title: "Translate", // Changed from "Translate to Hindi"
                 questions: [
                     { q: "I went to the market yesterday.", id: "pst_translate_market" },
                     { q: "He played football.", id: "pst_translate_football" },
@@ -179,7 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         "Past Continuous Tense": [
             {
-                title: "Translate to Hindi",
+                title: "Translate", // Changed from "Translate to Hindi"
                 questions: [
                     { q: "I was reading a book.", id: "pct_translate_reading_book" },
                     { q: "She was cooking dinner.", id: "pct_translate_cooking_dinner" },
@@ -214,7 +214,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         "Past Perfect Tense": [
             {
-                title: "Translate to Hindi",
+                title: "Translate", // Changed from "Translate to Hindi"
                 questions: [
                     { q: "I had finished my homework.", id: "ppt_translate_homework" },
                     { q: "She had left the house.", id: "ppt_translate_left_house" },
@@ -249,7 +249,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         "Future Simple Tense": [
             {
-                title: "Translate to Hindi",
+                title: "Translate", // Changed from "Translate to Hindi"
                 questions: [
                     { q: "I will go to school tomorrow.", id: "fst_translate_school" },
                     { q: "She will call me.", id: "fst_translate_call" },
