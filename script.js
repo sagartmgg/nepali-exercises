@@ -283,14 +283,9 @@ document.addEventListener('DOMContentLoaded', () => {
         ]
     };
 
-    // No localStorage needed for saving student answers
-    // const storageKey = "eng2hindi_exercise_answers";
-    // let savedData = JSON.parse(localStorage.getItem(storageKey)) || {};
-
     const topicButtonsContainer = document.getElementById("topic-buttons");
-    // Corrected ID to match HTML: exercise-container
     const exerciseContainer = document.getElementById("exercise-container");
-    const mainTitle = document.getElementById("main-title"); // Added back for main title update
+    const mainTitle = document.getElementById("main-title");
 
     // Function to load a topic's exercises
     function loadTopic(topicKey) {
@@ -302,33 +297,15 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!sections) return;
 
         sections.forEach((section, sectionIdx) => {
-            // Each section will now be its own form
-            const sectionForm = document.createElement('form');
-            sectionForm.className = 'exercise-section';
-            sectionForm.setAttribute('data-netlify', 'true'); // Important for Netlify
-            // Ensure unique form name for Netlify. Replaced spaces and special chars.
-            sectionForm.setAttribute('name', `exercise_${topicKey.replace(/[^a-zA-Z0-9]/g, '_')}_${sectionIdx}`);
+            // Each section will be a div, not a form
+            const sectionDiv = document.createElement('div');
+            sectionDiv.className = 'exercise-section';
 
             const sectionTitle = document.createElement('h3');
             sectionTitle.textContent = section.title;
-            sectionForm.appendChild(sectionTitle);
-
-            // Add hidden fields for metadata
-            const hiddenTopic = document.createElement('input');
-            hiddenTopic.type = 'hidden';
-            hiddenTopic.name = 'topic';
-            hiddenTopic.value = topicKey;
-            sectionForm.appendChild(hiddenTopic);
-
-            const hiddenSectionTitle = document.createElement('input');
-            hiddenSectionTitle.type = 'hidden';
-            hiddenSectionTitle.name = 'section_title';
-            hiddenSectionTitle.value = section.title;
-            sectionForm.appendChild(hiddenSectionTitle);
+            sectionDiv.appendChild(sectionTitle);
 
             section.questions.forEach((item, questionIdx) => {
-                // Ensure a unique ID for label/textarea to link them correctly
-                // Use item.id if provided, otherwise generate a unique one
                 const uniqueId = item.id || `${topicKey.replace(/[^a-zA-Z0-9]/g, '_')}_${sectionIdx}_${questionIdx}`;
 
                 const questionBlock = document.createElement('div');
@@ -339,69 +316,41 @@ document.addEventListener('DOMContentLoaded', () => {
                 label.textContent = item.q;
 
                 const textarea = document.createElement('textarea');
-                textarea.id = uniqueId;
-                // Important: name attribute for Netlify to capture the answer
-                // Use a descriptive name that includes the question ID for clarity in Netlify dashboard
-                textarea.name = `answer_${uniqueId}`; // Use the generated uniqueId as part of the name
-
+                textarea.id = uniqueId; // Keep ID for localStorage and label linking
                 textarea.setAttribute('placeholder', 'Type your answer here...');
-                // Removed oninput for localStorage save as we are submitting forms
+
+                // *** LOCAL STORAGE: Load answer on page load/section change ***
+                const storedAnswer = localStorage.getItem(uniqueId);
+                if (storedAnswer) {
+                    textarea.value = storedAnswer;
+                }
+
+                // *** LOCAL STORAGE: Save answer as user types ***
+                textarea.addEventListener('input', () => {
+                    localStorage.setItem(uniqueId, textarea.value);
+                });
 
                 questionBlock.appendChild(label);
                 questionBlock.appendChild(textarea);
-                sectionForm.appendChild(questionBlock);
+                sectionDiv.appendChild(questionBlock);
             });
 
-            // Add a submit button for each section form
-            const submitButton = document.createElement('button');
-            submitButton.type = 'submit';
-            submitButton.textContent = 'Submit Answers for this Section';
-            submitButton.className = 'submit-section-btn'; // Add a class for styling
+            // Add a "Clear Answers" button
+            const clearButton = document.createElement('button');
+            clearButton.type = 'button'; // It's a button, not a submit
+            clearButton.textContent = 'Clear Answers for this Section';
+            clearButton.className = 'submit-section-btn'; // Keep class for styling
 
-            sectionForm.appendChild(submitButton);
-
-            // Add an event listener to handle form submission
-            sectionForm.addEventListener('submit', async (event) => {
-                event.preventDefault(); // Prevent default form submission
-
-                const submitBtn = event.target.querySelector('.submit-section-btn');
-                submitBtn.textContent = 'Submitting...';
-                submitBtn.disabled = true;
-
-                // Form data needs to be collected for Netlify
-                const formData = new FormData(event.target);
-                const query = new URLSearchParams(formData).toString();
-
-                try {
-                    const response = await fetch("/", { // Submit to root URL (handled by Netlify)
-                        method: "POST",
-                        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                        body: query,
-                    });
-
-                    if (response.ok) {
-                        alert('Answers submitted successfully! Thank you.');
-                        // Optionally clear the form after successful submission
-                        event.target.reset();
-                    } else {
-                        // Check for specific Netlify error (e.g., honeypot bot field)
-                        // Netlify often returns 400 for bot submissions if honeypot is triggered
-                        if (response.status === 400 && response.url.includes("bot-field")) {
-                             alert('It looks like your submission might have been blocked as spam. Please try again.');
-                        } else {
-                             alert('There was an error submitting your answers. Please try again.');
-                        }
-                    }
-                } catch (error) {
-                    console.error('Submission error:', error);
-                    alert('Network error or problem submitting answers.');
-                } finally {
-                    submitBtn.textContent = 'Submit Answers for this Section';
-                    submitBtn.disabled = false;
-                }
+            clearButton.addEventListener('click', () => {
+                sectionDiv.querySelectorAll('textarea').forEach(textarea => {
+                    textarea.value = ''; // Clear the textarea content
+                    localStorage.removeItem(textarea.id); // Remove from localStorage
+                });
+                alert('Answers cleared for this section and removed from local storage.');
             });
 
-            exerciseContainer.appendChild(sectionForm);
+            sectionDiv.appendChild(clearButton);
+            exerciseContainer.appendChild(sectionDiv);
         });
 
         // Update active button state
